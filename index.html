@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPlayground</title>
+
+    <!-- External Google Fonts (Fira Code for code editor & Inter for clean UI) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar for (Actions & Controls)    -->
+    <header class="navbar">
+        <!-- Logo Branding Section -->
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <span class="logo-text">Dev<span>Playground</span></span>
+        </div>
+        
+        <!-- Navigation Action Buttons (Theme, Share, Save, Projects, Clear, Run) -->
+        <div class="nav-actions">
+            <!-- Toggle between Dark and Light UI themes -->
+            <button id="themeToggle" class="btn-secondary" title="Toggle Theme"><i class="fa-solid fa-circle-half-stroke"></i></button>
+            
+            <!-- Generate and copy a shareable base64 link of the current code -->
+            <button id="shareBtn" class="btn-secondary" title="Copy Shareable Link"><i class="fa-solid fa-share-nodes"></i> Share</button>
+            
+            <!-- Open save project modal dialog -->
+            <button id="saveBtn" class="btn-secondary" title="Save Project"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+            
+            <!-- Open modal listing all locally saved projects -->
+            <button id="viewSavedBtn" class="btn-secondary" title="View Saved Projects"><i class="fa-solid fa-folder-open"></i> Projects</button>
+            
+            <!-- Clear all text fields and workspace inputs -->
+            <button id="clearStorageBtn" class="btn-secondary" title="Clear Code"><i class="fa-solid fa-trash-can"></i></button>
+            
+            <!-- Execute and render code live into the output iframe -->
+            <button id="runBtn" class="btn-primary"><i class="fa-solid fa-play"></i> Run Code</button>
+        </div>
+    </header>
+
+    <!-- Main Workspace For (Code Editors & Live Preview) -->
+    <main class="workspace">
+        <!-- Left Side: Code Editor Panel with Language Switcher Tabs -->
+        <div class="editor-panel">
+            <!-- Language Selection Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-target="htmlEditor">HTML</button>
+                <button class="tab-btn" data-target="cssEditor">CSS</button>
+                <button class="tab-btn" data-target="jsEditor">JS</button>
+            </div>
+            
+            <!-- Textarea Containers for Code Input -->
+            <div class="code-containers">
+                <textarea id="htmlEditor" class="code-input active" spellcheck="false" placeholder="<!-- Write your HTML structure here -->"></textarea>
+                <textarea id="cssEditor" class="code-input" spellcheck="false" placeholder="/* Write your CSS styling here */"></textarea>
+                <textarea id="jsEditor" class="code-input" spellcheck="false" placeholder="// Write your JavaScript logic here"></textarea>
+            </div>
+        </div>
+
+        <!-- Right Side: Live Output Preview Panel -->
+        <div class="preview-panel">
+            <div class="preview-header"><span><i class="fa-solid fa-eye"></i> Live Output</span></div>
+            <!-- Iframe where HTML/CSS/JS is rendered in real-time -->
+            <iframe id="outputPreview"></iframe>
+        </div>
+    </main>
+
+    <!-- Modals & Notification Section -->
+
+    <!-- Save Project Modal (Center Input Box) -->
+    <div id="saveModal" class="modal-overlay">
+        <div class="modal-content save-box-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-floppy-disk" style="color: var(--accent);"></i> Save Project</h3>
+                <button id="closeSaveModal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="projectNameInput" style="font-size: 13px; color: var(--text-muted);">Enter project name:</label>
+                <input type="text" id="projectNameInput" class="project-name-input" placeholder="e.g. My Awesome Portfolio" autocomplete="off">
+                <div class="save-modal-actions">
+                    <button id="cancelSaveBtn" class="btn-secondary">Cancel</button>
+                    <button id="confirmSaveBtn" class="btn-primary">Save Project</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Listing Saved Projects -->
+    <div id="savedModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-folder-open"></i> Saved Projects</h3>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <!-- Dynamic container where saved projects list will be injected via JS -->
+            <div id="savedProjectsList" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification for User Actions -->
+    <div id="toast" class="toast">Action successful!</div>
+
+    <!-- Main JavaScript Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
